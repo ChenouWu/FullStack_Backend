@@ -1,6 +1,7 @@
 const User = require('../model/User');
 const jwt = require('jsonwebtoken');
 const JWTKEY = "wdwdjwdkwjdkwmdwmxiwmdiwhdwdiwjdiwjwedwrwdw";
+const bcrypt = require('bcrypt');
 
 const SignUp = async (req,res) => {
     try{
@@ -14,12 +15,12 @@ const SignUp = async (req,res) => {
                 password,
             })
             await newUser.save();
-            return res.status(200).json({success:true,newUser});
+            return res.status(200).json({success:true, newUser });
         }
 
-        res.status(500).json({success:true,message:"User has exsited"})
+        res.status(500).json({success:false,message:"User has exsited"})
     }catch(err){
-        res.status(500).json({success:true,message:"User created failed"})
+        res.status(500).json({success:false,message:"User created failed"})
         console.log(err);
     }
 }
@@ -40,7 +41,7 @@ const Login = async(req,res) => {
         }
     
         // Compare passwords
-        const isMatched = await bcry.compare(password, exsiteUser.password);
+        const isMatched = await bcrypt.compare(password, exsiteUser.password);
         if (!isMatched) {
           return res.status(404).json({ success: false, error: "Password is not correct" });
         }
