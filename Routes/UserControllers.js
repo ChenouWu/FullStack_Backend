@@ -47,12 +47,15 @@ const Login = async(req,res) => {
         }
   
         const token = jwt.sign({ _id:exsiteUser._id},JWTKEY,{expiresIn:"10d"});
-        res.status(200).json({success:true,token,
-          user:{
+
+        res.status(200).json({
+            success:true,
+            token,
+            user:{
               id:exsiteUser._id,
               name:exsiteUser.name,
               email:exsiteUser.email,
-          }})
+            }})
     }catch(error){
         console.log(error);
     }
