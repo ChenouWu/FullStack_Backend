@@ -10,6 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use('/api/users',UserRoutes);
+app.use('/api/cart',CartRoutes);
+
 mongoose.connect("mongodb+srv://wuchenou1:wuchenou1@cluster0.krueo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => {
     console.log("Connected to MongoDB Successfully");
@@ -24,6 +27,3 @@ mongoose.connect("mongodb+srv://wuchenou1:wuchenou1@cluster0.krueo.mongodb.net/?
   .catch(err => {
     console.error("MongoDB connection error:", err);
   });
-
-app.use('/api/users',UserRoutes);
-app.use('/api/cart',CartRoutes);
