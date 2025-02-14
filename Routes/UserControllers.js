@@ -1,7 +1,8 @@
 const User = require('../model/User');
 const jwt = require('jsonwebtoken');
 const JWTKEY = "wdwdjwdkwjdkwmdwmxiwmdiwhdwdiwjdiwjwedwrwdw";
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcryptjs");  // 替换 bcrypt
+
 
 const SignUp = async (req, res) => {
     try {

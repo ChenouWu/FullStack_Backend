@@ -7,18 +7,23 @@ const CartRoutes = require('./Routes/ProductsRoutes')
 
 const app = express();
 
-mongoose.connect("mongodb+srv://wuchenou1:wuchenou1@cluster0.krueo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(
-    console.log("Connect to MongoDB Successfully")
-);
-
 app.use(cors());
 app.use(express.json());
 
+mongoose.connect("mongodb+srv://wuchenou1:wuchenou1@cluster0.krueo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+  .then(() => {
+    console.log("Connected to MongoDB Successfully");
+
+    // 只有在 MongoDB 连接成功后，才启动服务器
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+      console.log(`Server is running on ${PORT}`);
+    });
+  })
+  
+  .catch(err => {
+    console.error("MongoDB connection error:", err);
+  });
+
 app.use('/api/users',UserRoutes);
 app.use('/api/cart',CartRoutes);
-
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT,()=>{
-    console.log(`Server is running on ${PORT}`)
-})
